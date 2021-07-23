@@ -1,9 +1,40 @@
 package com.cg.bookstore.entities;
 
-public class OrderDetails {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="orderdetailstable")
+public class OrderDetails implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@OneToOne
+	@MapsId
+	@JoinColumn(name="book_id")
 	private Book book;
+	
+	@Id
+	@ManyToOne
+	@JoinColumn(name="order_id")
 	private BookOrder bookOrder;
+	
+	@Column(name="quantity")
 	private int quantity;
+	
+	@Column(name="subtotal")
 	private double subtotal;
 	
 	public OrderDetails(Book book, BookOrder bookOrder, int quantity, double subtotal) {

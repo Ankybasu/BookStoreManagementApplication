@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,8 @@ import org.hibernate.annotations.LazyToOneOption;
 public class Customer {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="custSeqGen",sequenceName="custSeq",initialValue=201,allocationSize=100)
+	@GeneratedValue(generator="custSeqGen")
 	@Column(name="cust_id")
 	private int customerId;
 

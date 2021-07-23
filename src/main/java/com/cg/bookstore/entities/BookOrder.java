@@ -2,15 +2,48 @@ package com.cg.bookstore.entities;
 
 import java.time.LocalDate;
 
-public class BookOrder {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="bookordertable")
+public class BookOrder{
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="order_id")
 	private int orderId;
+	
+	@OneToOne
+	@JoinColumn(name="cust_id")
 	private Customer customer;
+	
+	@Column(name="orderdate")
 	private LocalDate orderDate;
+	
+	@Column(name="ordertotal")
 	private double orderTotal;
+	
+	@Column(name="status")
 	private String status;
-	private Address ShippingAddress;
+	
+	@OneToOne
+	@JoinColumn(name="shippingaddress")
+	private Address shippingAddress;
+	
+	@Column(name="paymentmethod")
 	private String paymentMethod;
+	
+	@Column(name="recipentname")
 	private String recipientName;
+	
+	@Column(name="recipentphone")
 	private String recipientPhone;
 	
 	public BookOrder() {
@@ -23,7 +56,7 @@ public class BookOrder {
 		this.orderDate = orderDate;
 		this.orderTotal = orderTotal;
 		this.status = status;
-		ShippingAddress = shippingAddress;
+		this.shippingAddress = shippingAddress;
 		this.paymentMethod = paymentMethod;
 		this.recipientName = recipientName;
 		this.recipientPhone = recipientPhone;
@@ -58,11 +91,11 @@ public class BookOrder {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Address getShippingAddress() {
-		return ShippingAddress;
+	public Address getshippingAddress() {
+		return shippingAddress;
 	}
-	public void setShippingAddress(Address shippingAddress) {
-		ShippingAddress = shippingAddress;
+	public void setshippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
 	}
 	public String getPaymentMethod() {
 		return paymentMethod;

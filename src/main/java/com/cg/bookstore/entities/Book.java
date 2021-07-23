@@ -1,20 +1,31 @@
 package com.cg.bookstore.entities;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="booktable")
 public class Book {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="bookSeqGen",sequenceName="bookSeq",initialValue=101,allocationSize=100)
+	@GeneratedValue(generator="bookSeqGen")
 	@Column(name="book_id")
 	private int bookId;
 	
@@ -24,7 +35,7 @@ public class Book {
 	@Column(name="author")
 	private String author;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="category_id")
 	private Category category;
 	
@@ -43,6 +54,19 @@ public class Book {
 	@Column(name="lastupdatedon")
 	private LocalDate lastUpdatedOn;
 	
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+    private Set<Review> reviews = new HashSet<>();
+	
+
+
+	public Set<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Set<Review> reviews) {
+		this.reviews = reviews;
+	}
+
 	public Book() {
 		super();
 	}

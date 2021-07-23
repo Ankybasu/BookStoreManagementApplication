@@ -1,20 +1,63 @@
 package com.cg.bookstore.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Review {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Entity
+@Table(name="reviewtable")
+@JsonIgnoreProperties(ignoreUnknown = true) 
+public class Review implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="review_id")
 	private int reviewId;
+	
+    @ManyToOne(fetch = FetchType.LAZY)
 	private Book book;
-	private Customer customer;
+	
+	@OneToOne
+	@JoinColumn(name="cust_id")
+    private Customer customer;
+    
+	@Column(name="headline")
 	private String headLine;
+	
+	@Column(name="comments")
 	private String comment;
+	
+	@Column(name="ratings")
 	private double rating;
+	
+	@Column(name="date_reviewon")
 	private LocalDate reviewOn;
 	
 	public Review(Book book, Customer customer, String headLine, String comment, double rating, LocalDate reviewOn) {
 		super();
 		this.book = book;
-		this.customer = customer;
+		//this.customer = customer;
 		this.headLine = headLine;
 		this.comment = comment;
 		this.rating = rating;
