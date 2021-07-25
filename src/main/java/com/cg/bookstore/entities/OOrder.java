@@ -24,26 +24,45 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true) 
-@Table(name="orderdetailstable")
-public class OrderDetails{
+@Table(name="ordertable")
+public class OOrder{
 	@Id
 	//@GeneratedValue(strategy=GenerationType.AUTO)
-	@SequenceGenerator(name="odrSeqGen",sequenceName="odrSeq",initialValue=501,allocationSize=100)
-	@GeneratedValue(generator="odrSeqGen")
-	@Column(name="orderdetails_id",nullable = false)
-	private int orderDetailsId;
+	@SequenceGenerator(name="odSeqGen",sequenceName="odSeq",initialValue=501,allocationSize=100)
+	@GeneratedValue(generator="odSeqGen")
+	@Column(name="oorder_id",nullable = false)
+	private int oorderId;
 	
 	
 	@OneToOne
 	@JoinColumn(name="book_id")
 	private Book book;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="bookorder_id")
 	private BookOrder bookOrder;
+	
+	//@ManyToOne//(cascade = CascadeType.MERGE)//merge
+	//@JoinColumn(name="order_id")
+	//private BookOrder bookOrder;
+	
+	public BookOrder getBookOrder() {
+		return bookOrder;
+	}
 
-	public OrderDetails(Book book,int quantity, double subtotal) {
+	public OOrder(Book book, BookOrder bookOrder, int quantity, double subtotal) {
+		super();
+		this.book = book;
+		this.bookOrder = bookOrder;
+		this.quantity = quantity;
+		this.subtotal = subtotal;
+	}
+
+	public void setBookOrder(BookOrder bookOrder) {
+		this.bookOrder = bookOrder;
+	}
+
+	public OOrder(Book book,int quantity, double subtotal) {
 		super();
 		this.book = book;
 		//this.bookOrder = bookOrder;
@@ -56,29 +75,16 @@ public class OrderDetails{
 	@Column(name="subtotal")
 	private double subtotal;
 
-	public OrderDetails() {
+	public OOrder() {
 		super();
 	}
-	
-	public int getOrderDetailsId() {
-		return orderDetailsId;
+
+	public int getOorderId() {
+		return oorderId;
 	}
-
-
-	public void setOrderDetailsId(int orderDetailsId) {
-		this.orderDetailsId = orderDetailsId;
+	public void setOorderId(int oorderId) {
+		this.oorderId = oorderId;
 	}
-
-
-	public BookOrder getBookOrder() {
-		return bookOrder;
-	}
-
-
-	public void setBookOrder(BookOrder bookOrder) {
-		this.bookOrder = bookOrder;
-	}
-
 
 	public Book getBook() {
 		return book;
@@ -87,6 +93,11 @@ public class OrderDetails{
 		this.book = book;
 	}
 
+	/*
+	 * 
+	 * public BookOrder getBookOrder() { return bookOrder; } public void
+	 * setBookOrder(BookOrder bookOrder) { this.bookOrder = bookOrder; }
+	 */
 	 
 	public int getQuantity() {
 		return quantity;
@@ -100,5 +111,4 @@ public class OrderDetails{
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
-
 }

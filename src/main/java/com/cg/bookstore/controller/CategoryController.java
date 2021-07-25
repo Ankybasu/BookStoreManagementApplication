@@ -34,7 +34,7 @@ public class CategoryController {
     @ExceptionHandler(CategoryAlreadyPresentException.class)
     ResponseEntity<String> addCategory(@Valid @RequestParam String categoryName) {
         // persisting the category
-    	Category cat=categoryService.addCategory(categoryName);
+    	String cat=categoryService.addCategory(categoryName);
         return ResponseEntity.ok("Category "+categoryName+" is valid");
     }
     @GetMapping("/viewallcategories")

@@ -31,7 +31,8 @@ public class Customer {
 	@GeneratedValue(generator="custSeqGen")
 	@Column(name="cust_id")
 	private int customerId;
-
+	
+	
 	@Column(name="email")
 	private String email;
 	
@@ -40,8 +41,9 @@ public class Customer {
 
 	@Column(name="password")
 	private String password;
-	
-	@OneToOne
+
+
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="address_id")
 	private Address address;
 	
@@ -66,6 +68,13 @@ public class Customer {
 		this.registerOn = registerOn;
 	}
 	
+
+	public Customer(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
 	public int getCustomerId() {
 		return customerId;
 	}
