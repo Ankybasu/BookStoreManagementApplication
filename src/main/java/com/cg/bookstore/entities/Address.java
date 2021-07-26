@@ -17,16 +17,16 @@ public class Address {
 	@Column(name="address_id")
 	private int addressId;
 	
-	@Column(name="address")
+	@Column(name="address",nullable=false)
 	private String address;
 	
-	@Column(name="city")
+	@Column(name="city",nullable=false)
 	private String city;
 	
-	@Column(name="country")
+	@Column(name="country",nullable=false)
 	private String country;
 	
-	@Column(name="pincode")
+	@Column(name="pincode",nullable=false)
 	private String pincode;
 
 	public Address() {

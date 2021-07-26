@@ -18,12 +18,14 @@ public class CategoryServiceImpl implements ICategoryService{
 	@Autowired
 	private ICategoryRepository categoryServiceRepo;
 	
+
 	@Override
-	public Category addCategory(String categoryName) {
+	public String addCategory(String categoryName) {
 		// TODO Auto-generated method stub
 		Optional<Category> findCategoryByCategoryName = categoryServiceRepo.findByCategoryName(categoryName);
 		if (!findCategoryByCategoryName.isPresent()) {
-			return categoryServiceRepo.save(new Category(categoryName));
+			 categoryServiceRepo.save(new Category(categoryName));
+			 return "Category added!";
 		} else
 			throw new CategoryAlreadyPresentException(
 					"Category " + categoryName + " already exists!!");

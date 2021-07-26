@@ -12,4 +12,11 @@ import com.cg.bookstore.entities.Review;
 @Repository
 public interface IReviewRepository extends JpaRepository<Review, Integer>{
 
+
+	public List<Review> findByBook(int bookId);
+
+	public List<Review> findByCustomer(int customerId);
+
+	public List<Review> findByBook(Book book);
+
 }
