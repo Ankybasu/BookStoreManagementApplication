@@ -7,11 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cg.bookstore.entities.Book;
+import com.cg.bookstore.entities.Category;
 
 @Repository
 public interface IBookRepository extends JpaRepository<Book, Integer>{
-	public Book findByTitle(String bookName);
-	public List<Book> findByCategory(String category);
+	public List<Book> findByTitle(String bookName);
 	public Optional<Book> findByBookId(int id);
+	public List<Book> findByCategory(Category ob);
+
+
 
 }

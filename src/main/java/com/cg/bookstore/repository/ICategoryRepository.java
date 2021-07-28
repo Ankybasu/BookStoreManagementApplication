@@ -10,5 +10,7 @@ import com.cg.bookstore.entities.Category;
 
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category, Integer>{
+	public List<Category> findDistinctByCategoryName(String categoryName);
+
 	public Optional<Category> findByCategoryName(String categoryName);
 }

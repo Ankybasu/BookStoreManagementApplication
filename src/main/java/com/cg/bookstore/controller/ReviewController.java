@@ -1,5 +1,6 @@
 package com.cg.bookstore.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.bookstore.entities.Review;
 import com.cg.bookstore.entities.Book;
 import com.cg.bookstore.entities.Category;
+import com.cg.bookstore.entities.Customer;
 import com.cg.bookstore.exceptions.BookAlreadyPresentException;
 import com.cg.bookstore.exceptions.BookNotFoundException;
 import com.cg.bookstore.exceptions.CategoryAlreadyPresentException;
@@ -35,11 +37,17 @@ public class ReviewController {
 	@Autowired
 	private ReviewServiceImpl reviewService;
 	
+    @PostMapping("/addreviewbyparams")
+    ResponseEntity<String> addReview(@RequestParam int bookId,@RequestParam int custId,@RequestParam String desc,@RequestParam String headLine,@RequestParam String comment,@RequestParam double rating) {
+        // persisting the category
+    	ResponseEntity<String> r= reviewService.addReviewByParam(bookId,desc,custId,headLine,comment,rating);
+		return r;
+    }
     @PostMapping("/addreview")
     ResponseEntity<String> addReview(@Valid @RequestBody Review review) {
         // persisting the category
     	Review r= reviewService.addReview(review);
-        return ResponseEntity.ok("Review "+ review +" is valid");
+        return ResponseEntity.ok("Review added by "+r.getCustomer().getFullName());
     }
     @GetMapping("/listallreview")
     public List<Review> getAllReview(){
@@ -58,14 +66,18 @@ public class ReviewController {
 
 		return reviewService.deleteReview(review);
 	}
-	 @GetMapping("/viewreview")
+	 @GetMapping("/viewreview/{reviewid}")
 	 @ExceptionHandler(ReviewNotFoundException.class)
-	    public Review viewReviewByReviewId(@PathVariable("reviewId") int reviewId) {
+	    public Review viewReviewByReviewId(@PathVariable("reviewid") int reviewId) {
 	    	return reviewService.viewReview(reviewId);
 	    }
-	 @GetMapping("/listallreviewsbybook/{bookName}")
+	 @GetMapping("/listallreviewsbybook")
 	    public List<Review> getAllReviewByBook(@RequestBody Book book){
 			return reviewService.listAllReviewsByBook(book);
+	    }
+	 @GetMapping("/listallreviewsbybookquery")
+	    public List<Review> getAllReviewByBookQuery(@RequestBody Book book){
+			return reviewService.listAllReviewsByBookQuery(book);
 	    }
 	 @GetMapping("/listallreviewsbycustomer/{custid}")
 	    public List<Review> getAllReviewByCustomer(@PathVariable("custid") int custId){

@@ -39,6 +39,7 @@ public class Review implements Serializable{
 	private Book book;
 	
 	@OneToOne
+	@JsonIgnoreProperties
 	@JoinColumn(name="cust_id")
     private Customer customer;
     
@@ -57,7 +58,7 @@ public class Review implements Serializable{
 	public Review(Book book, Customer customer, String headLine, String comment, double rating, LocalDate reviewOn) {
 		super();
 		this.book = book;
-		//this.customer = customer;
+		this.customer = customer;
 		this.headLine = headLine;
 		this.comment = comment;
 		this.rating = rating;
@@ -66,12 +67,33 @@ public class Review implements Serializable{
 	public Review() {
 		super();
 	}
+	/*
+	 * to display only the reviews not the customer and books
+	 */
+	public Review(int reviewId,Customer c,String headLine, String comment, double rating, LocalDate reviewOn) {
+		// TODO Auto-generated constructor stub
+		this.reviewId=reviewId;
+		this.customer=c;
+		this.headLine = headLine;
+		this.comment = comment;
+		this.rating = rating;
+		this.reviewOn = reviewOn;
+	}
+	public Review(String headLine, String comment, double rating, LocalDate reviewOn) {
+		// TODO Auto-generated constructor stub
+		this.headLine = headLine;
+		this.comment = comment;
+		this.rating = rating;
+		this.reviewOn = reviewOn;
+	}
+
 	public int getReviewId() {
 		return reviewId;
 	}
 	public void setReviewId(int reviewId) {
 		this.reviewId = reviewId;
 	}
+	@JsonBackReference
 	public Book getBook() {
 		return book;
 	}

@@ -1,7 +1,10 @@
 package com.cg.bookstore.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,11 +66,14 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
-
+	/*
+	 * The Customer 
+	 */
 	@Override
-	public OrderDetails viewOrderForCustomer(OrderDetails od) {
+	public BookOrder viewOrderForCustomer(OrderDetails od) {
 		// TODO Auto-generated method stub
-		return null;
+		return bookOrderRepo.findByCustomer(od.getBookOrder().getCustomer().getCustomerId());
+		
 	}
 
 	@Override
@@ -124,6 +130,16 @@ public class OrderDetailsServiceImpl implements IOrderDetailsService{
 	@Override
 	public List<Book> listBestSellingBook() {
 		// TODO Auto-generated method stub
+		List<OOrder> listOrders=eachOrderDetails.findAll();
+//		
+//		Map<BookOrder, Long> maxOrdr= 
+		//listOrders.stream()
+	    //.collect(Collectors.groupingBy(.g, Collectors.counting()));
+//		return maxOrdr.get(eachOrderDetails);
+		int highCount=0;
+		for(OOrder i: listOrders) {
+			
+		}
 		return null;
 	}
 

@@ -14,7 +14,7 @@ public interface IBookService {
 	public Book editBook(Book book);
 	//public Book viewBook(String bookName);
 	public List<Book> listBooksByCategory(String cat);
-	public Book viewBookByName(String bookName);
-	public String deleteBook(Integer bookId);
+	public List<Book> viewBookByName(String bookName);
+	public ResponseEntity<String> deleteBook(Integer bookId);
 	public ResponseEntity<?> findBookById(Integer bid);
 }

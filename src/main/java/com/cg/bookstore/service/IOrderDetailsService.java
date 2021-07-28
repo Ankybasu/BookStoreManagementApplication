@@ -17,7 +17,7 @@ import com.cg.bookstore.entities.OrderDetails;
 public interface IOrderDetailsService {
 	public List<BookOrder> listAllOrders();
 	public ResponseEntity<?> listOrderByCustomer(Customer cs);
-	public OrderDetails viewOrderForCustomer(OrderDetails od);
+	public BookOrder viewOrderForCustomer(OrderDetails od);
 	public OrderDetails viewOrderForAdmin(OrderDetails od);
 	public OrderDetails cancelOrder(OrderDetails od);
 	public OrderDetails addOrder(OrderDetails od);

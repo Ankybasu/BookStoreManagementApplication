@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.cg.bookstore.entities.Book;
@@ -17,5 +18,5 @@ public interface IOrderRepositorys extends JpaRepository<OOrder, Integer>{
 	public Optional<OOrder> findByBook(int i);
 
 	public Optional<OOrder> findAllByBook(int bookId);
-
+	//@Query("select bookId, from OOrder ")
 }

@@ -1,17 +1,13 @@
 package com.cg.bookstore.exceptions;
 
-public class BookNotFoundException extends RuntimeException{
-
+public class NotFoundException extends RuntimeException {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BookNotFoundException(String arg0) {
-		super(arg0);
+	public NotFoundException(String arg0) {
+		super("Book and customer both needs to exist");
 		// TODO Auto-generated constructor stub
 	}
-
-	
-
 }

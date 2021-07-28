@@ -18,38 +18,50 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description="customer")
 @Entity
 @Table(name="customertable")
 public class Customer {
 	
+	@ApiModelProperty(notes="customer id")
 	@Id
 	@SequenceGenerator(name="custSeqGen",sequenceName="custSeq",initialValue=201,allocationSize=100)
 	@GeneratedValue(generator="custSeqGen")
 	@Column(name="cust_id")
 	private int customerId;
 	
-	
-	@Column(name="email")
+	@ApiModelProperty(notes="customer email")	
+	@Column(name="email",unique = true)
 	private String email;
 	
+    @Size(max = 40, min = 1, message = "Name invalid")
+	@ApiModelProperty(notes="Full Name")	
 	@Column(name="fullname")
 	private String fullName;
 
+	@ApiModelProperty(notes="Password")
 	@Column(name="password")
 	private String password;
 
-
+	@ApiModelProperty(notes="Address")
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="address_id")
 	private Address address;
-	
+
+	@ApiModelProperty(notes="Mobile Number")
 	@Column(name="mobile_number")
 	private String mobileNumber;
 	
+	@ApiModelProperty(notes="registration Date")
 	@Column(name="registration_date")
 	private LocalDate registerOn;
 	

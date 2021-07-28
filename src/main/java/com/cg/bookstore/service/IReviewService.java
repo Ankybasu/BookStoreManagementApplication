@@ -13,7 +13,9 @@ public interface IReviewService {
 	public String deleteReview(Review review);
 	public Review updateReview(Review review);
 	public List<Book> listMostFavoredBooks();
-	public Review viewReview(Integer reviewId);
+	//public Review viewReview(Integer reviewId);
 	public List<Review> listAllReviewsByBook(Book b);
 	public List<Review> listAllReviewsByCustomer(int custId);
+	Review viewReview(int reviewId);
+	List<Review> listAllReviewsByBookQuery(Book book);
 }
